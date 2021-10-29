@@ -1,7 +1,7 @@
 {
   "name": "ecommerce-site-template",
   "version": "0.1.0",
-  "private": true,
+  "description": "Free ecommerce template which integrates with the luminoso api.",
   "dependencies": {
     "@luminoso/react-ecommerce-sdk": "^0.2.8",
     "@testing-library/jest-dom": "^5.11.4",
@@ -41,6 +41,21 @@
     "eject": "react-scripts eject",
     "prestart": "npm run build:tailwind",
     "prebuild": "npm run build:tailwind"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuminosoTech/ecommerce-site-template.git"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "luminoso",
+    "ecommerce",
+    "react-app",
+    "template",
+    "free"
+  ],
+  "bugs": {
+    "url": "https://github.com/LuminosoTech/ecommerce-site-template/issues"
   },
   "eslintConfig": {
     "extends": [
