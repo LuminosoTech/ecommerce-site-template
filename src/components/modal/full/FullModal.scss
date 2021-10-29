@@ -1,0 +1,43 @@
+$transition-duration: 300ms;
+
+.full-modal-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    transform: translate(0%, 0%);
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px -7px rgba(125, 120, 125, 1);
+    z-index: 1000;
+}
+
+.full_modal_close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    fill: black;
+}
+
+.full-modal-transition-enter {
+    opacity: 0;
+    transform: translate(0%, 10%);
+}
+
+.full-modal-transition-enter-active {
+    opacity: 1;
+    transform: translate(0%, 0%);
+    transition: $transition-duration ease;
+    transition-property: opacity, transform;
+}
+
+.full-modal-transition-exit-active {
+    opacity: 0;
+    transform: translate(0%, 10%);
+    transition: $transition-duration ease;
+    transition-property: opacity, transform;
+}

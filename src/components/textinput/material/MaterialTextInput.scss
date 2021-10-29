@@ -1,0 +1,92 @@
+.text_input_container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.text_input_sub_container {
+  position: relative;
+  border-bottom: solid var(--onBackground) thin;
+  margin: 0px 0px;
+}
+
+$bottom-border-height: 2px;
+
+.text_input_bottom_border {
+  position: absolute;
+  width: 100%;
+  height: $bottom-border-height;
+  bottom: -1px;
+  border-radius: 50px;
+}
+
+.text-input {
+  width: 100%;
+  outline-style: none;
+  appearance: none;
+  border-width: 0;
+  box-shadow: none;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+
+$transition-duration: 300ms;
+
+.text_input_bottom_border-transition-enter {
+  transform: scaleX(0);
+  height: $bottom-border-height;
+}
+
+.text_input_bottom_border-transition-enter-active {
+  transform: scaleX(1);
+  background-color: var(--primary);
+  transition: transform $transition-duration cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.text_input_bottom_border-transition-enter-done {
+  background-color: var(--primary);
+}
+
+.text_input_bottom_border-transition-exit {
+  height: $bottom-border-height;
+  transform: scaleX(1);
+}
+
+.text_input_bottom_border-transition-exit-active {
+  transform: scaleX(0);
+  background-color: var(--primary);
+  transition: transform $transition-duration cubic-bezier(0, 0, 0.2, 1) 0ms;
+}
+
+.text_input_error_text {
+  color: var(--error);
+  opacity: 0;
+  padding-left: 5px;
+  padding-top: 0.5rem;
+}
+
+.text_input_error_container-transition-enter {
+  transform: translateX(-10px);
+}
+
+.text_input_error_container-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: $transition-duration ease;
+  transition-property: opacity, transform;
+}
+
+.text_input_error_container-transition-enter-done {
+  opacity: 1;
+}
+
+.text_input_error_container-transition-exit {
+  opacity: 1;
+}
+
+.text_input_error_container-transition-exit-active {
+  transform: translateX(-10px);
+  opacity: 1;
+  transition: $transition-duration ease;
+  transition-property: opacity, transform;
+}

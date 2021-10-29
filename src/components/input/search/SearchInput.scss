@@ -1,0 +1,33 @@
+.search_input {
+    textarea:focus,
+    input:focus,
+    input[type]:focus,
+    .uneditable-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0px 0px rgba(229, 103, 23, 0.075) inset, 0 0 5px var(--primary);
+        outline: 0 none;
+    }
+}
+
+$transition-duration: 200ms;
+
+.error-transition-enter {
+    opacity: 0;
+}
+/* This is where we can add the transition*/
+.error-transition-enter-active {
+    opacity: 1;
+    transition: opacity $transition-duration ease;
+}
+
+.error-transition-enter-done {
+    opacity: 1;
+}
+
+.error-transition-exit {
+}
+/* fires as element leaves the DOM*/
+.error-transition-exit-active {
+    opacity: 0;
+    transition: opacity $transition-duration ease;
+}
