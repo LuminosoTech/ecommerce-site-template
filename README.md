@@ -2,7 +2,7 @@
 
 Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the [@luminoso/react-ecommerce-sdk](https://github.com/LuminosoTech/react-ecommerce-sdk). The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
 
-View a demo: [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/) It currently does not have an sdk key set, so every requests(get products, retrieve customer cart) throw a 401 unauthorized.
+View a demo at [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/). It currently does not have an sdk key set, so every requests(get products, retrieve customer cart) throw a 401 unauthorized.
 
 ## What is the goal of Luminoso
 
