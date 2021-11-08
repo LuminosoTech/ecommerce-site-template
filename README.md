@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+## What is the goal of this template?
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the @luminoso/react-ecommerce-sdk. The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
 
-## Available Scripts
+## What is the goal of Luminoso
 
-In the project directory, you can run:
+Provide an ecommerce solution which gives the option to individuals or companies to control all their data. Its combining multiple products into one (shopify, netlify, analytics, etc) and provide the option to self host all of it. The saas platform will be an option provided at [https://luminoso.tech/](https://luminoso.tech), which will be provided at a subscription price which could be customizable to your needs. 
 
-### `yarn start`
+For full self hosting, the customer facing website like this template are hosted without external solution such as netlify. Ex: [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/). For the backend, the current architecture is comprised of two spring boot instances. One api gateway to route incoming traffic, used to easily map request to the correct service and simplifies retrieving files for hosted files. The second is the monolith core api process which manages all the ecommerce & hosting logic. Both are built on top of spring boot, running on java 16. It can be deployed using docker.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Roadmap to releasing a Beta version of Luminoso
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+There's a few things to complete,
 
-### `yarn test`
+For this template, 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Things to be completed: 
 
-### `yarn build`
+- Cart screen, allowing customer to browse through paginated products, sort them by attributes, etc.
+- Check out flow, improving the flow & completing the stripe integration for credit card input.  
+- Overall ui / ux improvements
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Things to be added: 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- order screen package tracking for physical products
+- if stripe has been linked and set as the default payment provider, the checkout form credit card inputs are expected to use stripe react components. If other payment methods are enabled (apple pay, cryptocurrency, etc), abstractions will be made for them.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For the backend,
 
-### `yarn eject`
+There's some decent amount of work left, adding product shipping rate redundancy (just in case one shipping provider fails...), supporting more payment providers & crypto.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+For full self hosting, ideally have an automated upading system similar to jenkins. To allow indivituals / companies to easily get updates.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Interested in Beta testing Luminoso?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Any feedback on the sdk experience, saas product, this template are welcome. Developer feedback could range from sdk method names to finding a bug. Any issues found are welcomed. If you or someone you know is interested in using Luminoso as your ecommerce provider, message me at fabrizio.rodinmiron@luminoso.tech. I could notify everyone once the product is ready to launch. At the moment, im not looking for huge growth, just to create an awesome and stable alternative to existing solutions to give people the option of owning their data.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Questions or comments
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you have any questions or feedback (good or bad), send it at fabrizio.rodinmiron@luminoso.tech. If your interested in helping out or creating another template / integrating an existing template with the Luminoso api, we will definitly showcase the template and look into monetizing. I appreciate any time someone decides to put The luminoso team is mostly comprised on one person atm, me :D, so updates are expected to be on a slow cycle since this isn't my full time job, but hopefully one day it does become my full time job. I would love to hire a bunch of awesome people, like you :D, to help out with development.
