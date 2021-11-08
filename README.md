@@ -2,11 +2,13 @@
 
 Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the [@luminoso/react-ecommerce-sdk](https://github.com/LuminosoTech/react-ecommerce-sdk). The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
 
+View a demo: [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/) It currently does not have an sdk key set, so every requests(get products, retrieve customer cart) throw a 401 unauthorized.
+
 ## What is the goal of Luminoso
 
 Provide an ecommerce solution which gives the option to individuals or companies to control all their data. Its combining multiple products into one (shopify, netlify, analytics, etc) and provide the option to self host all of it. The saas platform will be an option provided at [https://luminoso.tech/](https://luminoso.tech), which will be provided at a subscription price which could be customizable to your needs. 
 
-For full self hosting, the customer facing website like this template are hosted without external solution such as netlify. Ex: [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/). For the backend, the current architecture is comprised of two spring boot instances. One api gateway to route incoming traffic, used to easily map request to the correct service and simplifies retrieving files for hosted files. The second is the monolith core api process which manages all the ecommerce & hosting logic. Both are built on top of spring boot, running on java 16. It can be deployed using docker.
+For full self hosting, the customer facing website like this template are hosted without external solution such as netlify. For the backend, the current architecture is comprised of two spring boot instances. One api gateway to route incoming traffic, used to easily map request to the correct service and simplifies retrieving files for hosted files. The second is the monolith core api process which manages all the ecommerce & hosting logic. Both are built on top of spring boot, running on java 16. It can be deployed using docker.
 
 ## Roadmap to releasing a Beta version of Luminoso
 
