@@ -1,6 +1,6 @@
 ## What is the goal of this template?
 
-Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the (@luminoso/react-ecommerce-sdk)[https://github.com/LuminosoTech/react-ecommerce-sdk]. The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
+Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the [@luminoso/react-ecommerce-sdk](https://github.com/LuminosoTech/react-ecommerce-sdk). The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
 
 ## What is the goal of Luminoso
 
