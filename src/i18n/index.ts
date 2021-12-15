@@ -14,6 +14,7 @@ export interface TranslationsKeys {
   forgotPassword: string;
   fullName: string;
   firstName: string;
+  firstNameOptional: string;
   lastName: string;
   or: string;
   noAccount: string;
@@ -46,8 +47,12 @@ export interface TranslationsKeys {
   shippingAddress: string;
   shippingRate: string;
   paymentMethod: string;
+  contactInformation: string;
+  contactInformationDesc: string;
+  contactInfoSubcribe: string;
   yourOrder: string;
   delivery: string;
+  calculatedAtNextStep: string;
   taxes: string;
   phoneNumber: string;
   address: string;
@@ -78,6 +83,14 @@ export interface TranslationsKeys {
   trackingLink: string;
   trackingProgress: string;
   addToCart: string;
+  saveForNextTime: string;
+  continueToShipping: string;
+  returnToCart: string;
+  continueToPayment: string;
+  returnToInformation: string;
+  contact: string;
+  shipTo: string;
+  shippingMethod: string;
 }
 
 export interface Translations extends ResourceLanguage {

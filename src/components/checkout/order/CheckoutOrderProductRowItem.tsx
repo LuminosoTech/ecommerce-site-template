@@ -71,7 +71,7 @@ export const CheckoutOrderProductRowItem = (props: CheckoutFormExpandableProps) 
   }, [cart, id, onUpdate, quantity]);
 
   return (
-    <div className="flex w-full px-5 mt-5">
+    <div className="flex w-fullmt-5">
       <div className="mr-4">
         <div
           className="h-20 bg-center bg-no-repeat bg-cover rounded-md w-28"

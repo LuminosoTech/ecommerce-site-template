@@ -1,23 +1,28 @@
-import { useHistory } from "react-router";
-import { useCheckout, PaymentMethod, useCart } from "@luminoso/react-ecommerce-sdk";
-import { CustomerSessionCartProduct, CustomerSessionCheckout } from "@luminoso/ecommerce-sdk";
+import "./CheckoutScreen.scss";
+import { Redirect, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router";
+import { useCheckout, PaymentMethod, useCart, useStore } from "@luminoso/react-ecommerce-sdk";
+import { CustomerSessionCheckout, StoreBranding } from "@luminoso/ecommerce-sdk";
 
 import { useEffect, useMemo, useState } from "react";
 import { NTText, TText } from "../../../components/text/Text";
 import { CheckoutOrderProductRowItem } from "../../../components/checkout/order/CheckoutOrderProductRowItem";
-import { CheckoutAccountExpandable } from "../../../components/checkout/form/CheckoutAccountExpandable";
-import { CheckoutShippingAddressExpandable } from "../../../components/checkout/form/CheckoutShippingAddressExpandable";
-import { CheckoutPaymentMethodExpandable } from "../../../components/checkout/form/CheckoutPaymentMethodExpandable";
-import { CheckoutShippingRatesExpandable } from "../../../components/checkout/form/CheckoutShippingRateExpandable";
-import { Button } from "../../../components/button/Button";
+
+import { CheckoutInformation } from "./information/CheckoutInformation";
+import { CheckoutShipping } from "./shipping/CheckoutShipping";
+import { CheckoutPayment } from "./payment/CheckoutPayment";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 export const CheckoutScreen = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [customerSessionCheckout, setCustomerSessionCheckout] = useState<CustomerSessionCheckout>();
+  const [branding, setBranding] = useState<StoreBranding>();
 
   const history = useHistory();
+  const { path } = useRouteMatch();
+  const location = useLocation();
 
   const checkout = useCheckout();
+  const store = useStore();
 
   useEffect(() => {
     const setup = async () => {
@@ -25,43 +30,70 @@ export const CheckoutScreen = () => {
         const sessionOrder = await checkout.getCustomerSessionCheckout();
         setCustomerSessionCheckout(sessionOrder);
       }
+      if (store) {
+        const branding = await store.getStoreBranding();
+        setBranding(branding);
+      }
     };
 
     setup();
-  }, [checkout]);
+  }, [checkout, store]);
 
-  const renderHeader = () => {
-    return <TText element="h1" text="shoppingCart" />;
-  };
-
-  const renderBody = useMemo(() => {
-    const renderForm = () => {
-      const handleAddPaymentMethod = async (paymentMethod: PaymentMethod) => {
-        if (checkout) {
-          const nonce = await checkout.postPaymentMethod(paymentMethod);
-          console.log("success none: ", nonce);
-        }
-      };
-
-      const handlePlaceOrder = async () => {
-        if (checkout) {
-          await checkout.placeOrder();
-        }
-      };
-
+  const renderCheckoutRoutes = useMemo(() => {
+    const renderHeader = () => {
       return (
-        <div className="w-full md:w-3/5 ">
-          <CheckoutAccountExpandable />
-          <CheckoutShippingAddressExpandable placeHolderClassName="mt-2" />
-          <CheckoutShippingRatesExpandable placeHolderClassName="mt-2" />
-          <CheckoutPaymentMethodExpandable placeHolderClassName="mt-2" onAddPaymentMethod={handleAddPaymentMethod} />
-          <div className="flex justify-end w-full py-10">
-            <Button text="placeOrder" onClick={handlePlaceOrder} />
+        <div>
+          <img src={branding?.icon} alt="icon" className="w-16 h-16" />
+        </div>
+      );
+    };
+
+    const renderBreadcrumb = () => {
+      return <div />;
+    };
+
+    const renderFooter = () => {
+      return (
+        <div className="flex flex-col">
+          <div className="h-0.5 bg-gray-200 my-5" />
+          <div className="flex">
+            <TText element="h5" text="refundPolicy" className="mr-4" />
+            <TText element="h5" text="privacyPolicy" className="mr-4" />
+            <TText element="h5" text="termsOfService" />
           </div>
         </div>
       );
     };
 
+    return (
+      <div className="flex justify-end flex-1">
+        <div className="flex flex-col justify-between w-4/6 p-20">
+          <div className="">
+            <div className="mb-4">
+              {renderHeader()}
+              {renderBreadcrumb()}
+            </div>
+            <div className="">
+              {branding && (
+                <Switch location={location}>
+                  <Route
+                    path={`${path}/contact-information`}
+                    component={() => <CheckoutInformation branding={branding} />}
+                  />
+                  <Route path={`${path}/shipping`} component={() => <CheckoutShipping branding={branding} />} />
+                  <Route path={`${path}/payment`} component={CheckoutPayment} />
+                  <Redirect to={`${path}/contact-information`} />
+                </Switch>
+              )}
+            </div>
+          </div>
+          {renderFooter()}
+        </div>
+      </div>
+    );
+  }, [branding, location, path]);
+
+  const renderSummary = useMemo(() => {
     const renderCartProducts = () => {
       const renderDivider = () => {
         return <div className="h-0.5 bg-gray-200 my-5" />;
@@ -69,45 +101,60 @@ export const CheckoutScreen = () => {
 
       const renderProducts = () => {
         const handleUpdate = async () => {
-          if (checkout) {
-            const sessionOrder = await checkout.getCustomerSessionCheckout();
-            setCustomerSessionCheckout(sessionOrder);
-          }
+          // if (checkout) {
+          //   const sessionOrder = await checkout.getCustomerSessionCheckout();
+          //   setCustomerSessionCheckout(sessionOrder);
+          // }
         };
 
-        return customerSessionCheckout?.products.map((product, index) => {
-          return (
-            <CheckoutOrderProductRowItem
-              key={index}
-              id={product.id}
-              title={product.name}
-              price={product.price}
-              quantity={product.quantity}
-              productImage={product.productImage}
-              onUpdate={handleUpdate}
-            />
-          );
-        });
+        return (
+          <div className="mb-4">
+            {customerSessionCheckout?.products.map((product, index) => {
+              return (
+                <CheckoutOrderProductRowItem
+                  key={index}
+                  id={product.id}
+                  title={product.name}
+                  price={product.price}
+                  quantity={product.quantity}
+                  productImage={product.productImage}
+                  onUpdate={handleUpdate}
+                />
+              );
+            })}
+          </div>
+        );
       };
 
       const renderDelivery = () => {
-        if (customerSessionCheckout && customerSessionCheckout.shippingRate) {
+        if (customerSessionCheckout) {
           const shippingRate = customerSessionCheckout.shippingRate;
 
-          const getPrice = () => {
-            const dollars = Number(shippingRate.amount);
+          if (shippingRate) {
+            const getPrice = () => {
+              const dollars = Number(shippingRate.amount);
 
-            return dollars.toLocaleString("en-US", { style: "currency", currency: "USD" });
-          };
+              return dollars.toLocaleString("en-US", { style: "currency", currency: "USD" });
+            };
 
-          return (
-            <div className="px-10 py-5">
-              <div className="flex justify-between">
-                <TText text="delivery" />
-                <NTText text={`${getPrice()} (${shippingRate.provider})`} />
+            return (
+              <div className="mb-4">
+                <div className="flex justify-between">
+                  <TText text="delivery" />
+                  <NTText text={`${getPrice()} (${shippingRate.provider})`} />
+                </div>
               </div>
-            </div>
-          );
+            );
+          } else {
+            return (
+              <div className="mb-4">
+                <div className="flex justify-between">
+                  <TText text="delivery" />
+                  <TText element="h5" text="calculatedAtNextStep" />
+                </div>
+              </div>
+            );
+          }
         }
       };
 
@@ -119,7 +166,7 @@ export const CheckoutScreen = () => {
           };
 
           return (
-            <div className="px-10 py-5">
+            <div className="">
               <div className="flex justify-between">
                 <TText text="subtotal" />
                 <NTText text={`${getPrice()}`} />
@@ -130,20 +177,31 @@ export const CheckoutScreen = () => {
       };
 
       const renderTaxes = () => {
-        if (customerSessionCheckout && customerSessionCheckout.tax) {
-          const getPrice = () => {
-            const tax = customerSessionCheckout.tax;
-            return tax.toLocaleString("en-US", { style: "currency", currency: "USD" });
-          };
+        if (customerSessionCheckout) {
+          if (customerSessionCheckout.tax) {
+            const getPrice = () => {
+              const tax = customerSessionCheckout.tax;
+              return tax.toLocaleString("en-US", { style: "currency", currency: "USD" });
+            };
 
-          return (
-            <div className="px-10 py-5">
-              <div className="flex justify-between">
-                <TText text="taxes" />
-                <NTText text={`${getPrice()}`} />
+            return (
+              <div className="mb-4 ">
+                <div className="flex justify-between">
+                  <TText text="taxes" />
+                  <NTText text={`${getPrice()}`} />
+                </div>
               </div>
-            </div>
-          );
+            );
+          } else {
+            return (
+              <div className="mb-4">
+                <div className="flex justify-between">
+                  <TText text="taxes" />
+                  <TText element="h5" text="calculatedAtNextStep" />
+                </div>
+              </div>
+            );
+          }
         }
       };
 
@@ -155,10 +213,10 @@ export const CheckoutScreen = () => {
           };
 
           return (
-            <div className="bg-gray-100 rounded-md">
-              <div className="flex items-center justify-between p-10">
-                <TText element="h1" text="total" />
-                <NTText element="h1" text={`${getPrice()}`} />
+            <div className="rounded-md">
+              <div className="flex items-center justify-between">
+                <TText element="h2" text="total" />
+                <NTText element="h2" text={`${getPrice()}`} />
               </div>
             </div>
           );
@@ -166,36 +224,31 @@ export const CheckoutScreen = () => {
       };
 
       return (
-        <div className="w-full h-full md:w-2/5">
-          <div className="flex flex-col justify-center p-5 mt-4 border rounded-md shadow-sm md:mx-5 md:mt-0">
-            <TText element="h3" text="yourOrder" />
-            {renderDivider()}
-            {renderProducts()}
-            {renderDelivery()}
-            {renderSubTotal()}
-            {renderTaxes()}
-            {renderTotal()}
-          </div>
+        <div className="flex flex-col w-full px-14 md:w-3/5">
+          {renderProducts()}
+          {renderDivider()}
+          {renderDelivery()}
+          {renderSubTotal()}
+          {renderDivider()}
+          {renderTaxes()}
+          {renderTotal()}
         </div>
       );
     };
 
     return (
-      <div className="flex flex-col h-full my-4 md:flex-row">
-        {renderForm()}
+      <div className="flex flex-1 py-20 " style={{ backgroundColor: branding?.primaryColor }}>
         {renderCartProducts()}
       </div>
     );
-  }, [checkout, customerSessionCheckout]);
+  }, [branding?.primaryColor, customerSessionCheckout]);
 
   const children = (
-    <div className="flex h-full p-4 md:items-center md:justify-center">
-      <div className="flex flex-col md:w-11/12 lg:w-9/12 xl::w-7/12">
-        {renderHeader()}
-        {renderBody}
-      </div>
-    </div>
+    <>
+      {renderCheckoutRoutes}
+      {renderSummary}
+    </>
   );
 
-  return <div className="w-full h-full">{children}</div>;
+  return <div className="flex w-full h-full">{children}</div>;
 };

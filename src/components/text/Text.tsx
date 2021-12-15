@@ -1,12 +1,12 @@
-import React from "react";
+import React, { ClassAttributes } from "react";
 import cx from "classnames";
 import { useTranslation } from "react-i18next";
 import { TranslationsKeys } from "../../i18n";
 
 type HtmlTextElement = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-type TextColor = "primary" | "secondary" | "custom";
+type TextColor = "primary" | "onPrimary" | "secondary" | "custom";
 
-interface TextElementProps extends React.HTMLAttributes<HTMLHeadingElement> {
+interface TextElementProps extends React.HTMLAttributes<HTMLHeadingElement>, ClassAttributes<HTMLHeadingElement> {
   element?: HtmlTextElement;
   text: string | JSX.Element;
   classNames: string;
@@ -82,10 +82,10 @@ export const TText = (props: TTextProps) => {
       }
     }
 
-    if (translatedText.indexOf("<primary>") !== -1) {
+    if (translatedText.indexOf("{primary}") !== -1) {
       return (
         <>
-          {translatedText.split("<primary>").map((text, index) => {
+          {translatedText.split("{primary}").map((text, index) => {
             const classNames = cx({
               "text-primaryVariant": index % 2 !== 0,
             });
@@ -106,17 +106,20 @@ export const TText = (props: TTextProps) => {
 
     return translatedText;
   };
-  const textClassNames = cx("font-mulish whitespace-pre-wrap leading-none", className, {
-    "text-primaryTextColor": color === "primary",
-    "text-secondaryTextColor": color === "secondary",
+  const textClassNames = cx("font-poppins whitespace-pre-wrap", className, {
+    "text-primaryTextColor transition-colors duration-200": color === "primary",
+    "text-secondaryTextColor transition-colors duration-200": color === "secondary",
+    "text-onPrimaryTextColor transition-colors duration-200": color === "onPrimary",
   });
 
   return <TextElement text={handleText()} classNames={textClassNames} {...rest} />;
 };
 
-TText.defaultProps = {};
+TText.defaultProps = {
+  color: "primary",
+};
 
-interface NTTextProps extends React.HTMLAttributes<HTMLHeadingElement> {
+interface NTTextProps extends React.HTMLAttributes<HTMLHeadingElement>, ClassAttributes<HTMLHeadingElement> {
   text?: string;
   color?: TextColor;
   args?: string[];
@@ -146,11 +149,13 @@ export const NTText = (props: NTTextProps) => {
 
     return nonTranslatedText;
   };
+
   const textClassNames = cx(
-    "font-mulish whitespace-pre-wrap leading-none",
+    "font-poppins whitespace-pre-wrap transition-colors duration-200",
     {
       "text-primaryTextColor": color === "primary",
       "text-secondaryTextColor": color === "secondary",
+      "text-onPrimaryTextColor": color === "onPrimary",
     },
     className
   );
@@ -158,4 +163,6 @@ export const NTText = (props: NTTextProps) => {
   return <TextElement text={handleText()} classNames={textClassNames} {...rest} />;
 };
 
-NTText.defaultProps = {};
+NTText.defaultProps = {
+  color: "primary",
+};

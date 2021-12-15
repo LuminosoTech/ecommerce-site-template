@@ -88,3 +88,9 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px none inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -ms-appearance: none; /* get rid of default appearance for IE8, 9 and 10*/
+}
