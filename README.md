@@ -2,11 +2,11 @@
 
 Provide a free ecommerce template starter which uses the luminoso ecommerce api. Ecommerce related logic is abstracted using the [@luminoso/react-ecommerce-sdk](https://github.com/LuminosoTech/react-ecommerce-sdk). The sdk manages retreiving your products, customer sessions, getting shipping rates, tax calculation based on customer locations, payment, etc. Upon a new customer visiting your store, a unique session id is set in order to manage their cart, show past orders and more. 
 
-View a demo at [https://freshfoods-20bc983c.luminoso.tech/](https://freshfoods-20bc983c.luminoso.tech/). It currently does not have an sdk key set, so every requests(get products, retrieve customer cart) throw a 401 unauthorized.
+View a demo at [https://freshfoods-20bc983c.luminoso.app/](https://freshfoods-20bc983c.luminoso.app/). It currently does not have an sdk key set, so every requests(get products, retrieve customer cart) throw a 401 unauthorized.
 
 ## What is the goal of Luminoso
 
-Provide an ecommerce solution which gives the option to individuals or companies to control all their data. Its combining multiple products into one (shopify, netlify, analytics, etc) and provide the option to self host all of it. The saas platform will be an option provided at [https://luminoso.tech/](https://luminoso.tech), which will be provided at a subscription price which could be customizable to your needs. 
+Provide an ecommerce solution which gives the option to individuals or companies to control all their data. Its combining multiple products into one (shopify, netlify, analytics, etc) and provide the option to self host all of it. The saas platform will be an option provided at [https://luminoso.app/](https://luminoso.app), which will be provided at a subscription price which could be customizable to your needs. 
 
 For full self hosting, the customer facing website like this template are hosted without external solution such as netlify. For the backend, the current architecture is comprised of two spring boot instances. One api gateway to route incoming traffic, used to easily map request to the correct service and simplifies retrieving files for hosted files. The second is the monolith core api process which manages all the ecommerce & hosting logic. Both are built on top of spring boot, running on java 16. It can be deployed using docker.
 
@@ -35,8 +35,8 @@ For full self hosting, ideally have an automated upading system similar to jenki
 
 ## Interested in Beta testing Luminoso?
 
-Any feedback on the sdk experience, saas product, this template are welcome. Developer feedback could range from sdk method names to finding a bug. Any issues found are welcomed. If you or someone you know is interested in using Luminoso as your ecommerce provider, message me at fabrizio.rodinmiron@luminoso.tech. I could notify everyone once the product is ready to launch. At the moment, im not looking for huge growth, just to create an awesome and stable alternative to existing solutions to give people the option of owning their data.
+Any feedback on the sdk experience, saas product, this template are welcome. Developer feedback could range from sdk method names to finding a bug. Any issues found are welcomed. If you or someone you know is interested in using Luminoso as your ecommerce provider, message me at fabrizio.rodin-miron@luminoso.app. I could notify everyone once the product is ready to launch. At the moment, im not looking for huge growth, just to create an awesome and stable alternative to existing solutions to give people the option of owning their data.
 
 ## Questions or comments
 
-If you have any questions or feedback (good or bad), send it at fabrizio.rodinmiron@luminoso.tech. If your interested in helping out or creating another template / integrating an existing template with the Luminoso api, we will definitly showcase the template and look into monetizing. I appreciate any time someone decides to put The luminoso team is mostly comprised on one person atm, me :D, so updates are expected to be on a slow cycle since this isn't my full time job, but hopefully one day it does become my full time job. I would love to hire a bunch of awesome people, like you :D, to help out with development.
+If you have any questions or feedback (good or bad), send it at fabrizio.rodin-miron@luminoso.app. If your interested in helping out or creating another template / integrating an existing template with the Luminoso api, we will definitly showcase the template and look into monetizing. I appreciate any time someone decides to put The luminoso team is mostly comprised on one person atm, me :D, so updates are expected to be on a slow cycle since this isn't my full time job, but hopefully one day it does become my full time job. I would love to hire a bunch of awesome people, like you :D, to help out with development.
